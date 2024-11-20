@@ -21,6 +21,7 @@ import Feedback from "./feedback";
 import ProductDetails from "./ProductDetails";
 import ProductDetails1 from "./ProductDetails1";
 import FSubmitted from "./Feedbacksubmitted";
+import Signup from "./Signup";
 
 function App() {
   return (
@@ -44,6 +45,8 @@ function App() {
           <Route path="/dashboard" element={[<Header />, <NavBarg/>, <Dashboard/>]} />
           <Route path="/product" element={[<Headergreen />, <NavBarg />, <ProductDetails />, <Footer />]}/>
           <Route path="/product1" element={[<Headergreen />, <NavBarg />, <ProductDetails1 />, <Footer />]}/>
+          <Route path="/signup" element={<Signup/>}/>
+          <Route path="/login" element={<Login/>}/>
 
         </Routes>
       </div>

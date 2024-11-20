@@ -1,8 +1,29 @@
 import React, { useState } from "react";
-import "./Login.css";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useHistory, useNavigate } from "react-router-dom";
+import {  signInWithEmailAndPassword  } from 'firebase/auth';
+import { auth } from './firebase';
 
-function Login(){    
+function Login(){ 
+  const navigate = useNavigate();
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+
+    const onLogin = (e) => {
+        e.preventDefault();
+        signInWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+            // Signed in
+            const user = userCredential.user;
+            navigate("/green")
+            console.log(user);
+        })
+        .catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            console.log(errorCode, errorMessage)
+        });
+
+    }   
     return (
         <div className="login">
             <Link to="/">
@@ -18,21 +39,26 @@ function Login(){
             <input
             type="text"
             aria-required
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
         />
 
           <h5>Password</h5>
           <input
             type="password"
             aria-required
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
           />
-          <Link to ="/">
+          
             <button
               className="login__signInButton"
               type="submit"
+              onClick={onLogin}
               >
               Sign In
             </button>
-          </Link>
+          
 
           <p>
             By signing in you agree the Terms and Conditions of the Green Choice. 
